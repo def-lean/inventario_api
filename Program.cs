@@ -16,5 +16,5 @@ app.UseHttpsRedirection();
 
 // 2. Mapeamos los controladores para activar las rutas de la API (ej: /api/tasks)
 app.MapControllers();
-
+app.MapGet("test", () => "¡La API está funcionando correctamente!");
 app.Run();
