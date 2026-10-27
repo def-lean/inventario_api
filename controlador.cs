@@ -27,6 +27,26 @@ namespace MiProyectoApi.Controllers
             return Ok(responseList);
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<TaskResponseDto> GetTask(int id)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            var responseDto = new TaskResponseDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                Description = task.Description,
+                IsCompleted = task.IsCompleted
+            };
+
+            return Ok(responseDto);
+        }
+
         // POST: api/tasks
         [HttpPost]
         public ActionResult<TaskResponseDto> CreateTask([FromBody] CreateTaskDto newTaskDto)
@@ -55,5 +75,6 @@ namespace MiProyectoApi.Controllers
             // 3. Devolvemos la respuesta
             return Ok(responseDto);
         }
+        
     }
 }
