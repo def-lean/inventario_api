@@ -75,6 +75,29 @@ namespace MiProyectoApi.Controllers
             // 3. Devolvemos la respuesta
             return Ok(responseDto);
         }
+        [HttpPut("{id}")]
+        public ActionResult<TaskResponseDto> UpdateTask(int id, [FromBody] CreateTaskDto updatedTaskDto)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            // Actualizamos los campos permitidos
+            task.Title = updatedTaskDto.Title;
+            task.Description = updatedTaskDto.Description;
+
+            var responseDto = new TaskResponseDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                Description = task.Description,
+                IsCompleted = task.IsCompleted
+            };
+
+            return Ok(responseDto);
+        }
         
     }
 }
